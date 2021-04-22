@@ -23,7 +23,7 @@ app.use(cors())
 });*/
 //console.log(db.select('*').from('favourite'))
 app.post('/addfav',(req,res) => {
-	
+	res.set('Access-Control-Allow-Origin', '*');
 	db('favourite').returning('*').insert({
 		email:req.body.email,
 		id: req.body.id,
