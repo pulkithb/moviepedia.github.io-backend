@@ -13,17 +13,17 @@ const db = knex({
 const app = express();
 app.use(bodyParser.json());
 app.use(cors())
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
-});
+});*/
 //console.log(db.select('*').from('favourite'))
 app.post('/addfav',(req,res) => {
-	res.setHeader('Access-Control-Allow-Origin', '*');
+	//res.setHeader('Access-Control-Allow-Origin', '*');
 	db('favourite').returning('*').insert({
 		email:req.body.email,
 		id: req.body.id,
@@ -33,31 +33,31 @@ app.post('/addfav',(req,res) => {
 		description: req.body.title
 	})
 	.then(response=>{
-		res.setHeader('Access-Control-Allow-Origin', '*');
+		//res.setHeader('Access-Control-Allow-Origin', '*');
 		res.json(response[0])
 	})
 	.catch(err=> res.status(400).json('Unable to add to favourite'))
 })
 app.get('/getfav/:email',(req,res) => {
-	res.setHeader('Access-Control-Allow-Origin', '*');
+	//res.setHeader('Access-Control-Allow-Origin', '*');
 	const {email}= req.params
 	
 	db.select('*').from('favourite').where('email','=',email)
 	.then(response => {
-		res.setHeader('Access-Control-Allow-Origin', '*');
+		//res.setHeader('Access-Control-Allow-Origin', '*');
 		res.json(response)
 	})
 	.catch(err=> res.status(400).json('Unable to load favourite'))
 
 })
 app.post('/delfav',(req,res) => {
-	res.setHeader('Access-Control-Allow-Origin', '*');
+	//res.setHeader('Access-Control-Allow-Origin', '*');
 	db('favourite').where(
 		'email','=',req.body.email
 		
 	).where('id','=',req.body.id).del()
 	.then(response => {
-		res.setHeader('Access-Control-Allow-Origin', '*');
+		//res.setHeader('Access-Control-Allow-Origin', '*');
 		res.json(response)
 	})
 	.catch(err=> res.status(400).json('Unable to delete Favourite'))
