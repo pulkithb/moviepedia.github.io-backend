@@ -13,6 +13,14 @@ const db = knex({
 const app = express();
 app.use(bodyParser.json());
 app.use(cors())
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://moviepedia-official.netlify.app/");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 //console.log(db.select('*').from('favourite'))
 app.post('/addfav',(req,res) => {
 	db('favourite').returning('*').insert({
