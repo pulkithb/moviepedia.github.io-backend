@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser');
-const cors = require('cors');
+//const cors = require('cors');
 const knex = require('knex');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
 const db = knex({
@@ -12,7 +12,7 @@ const db = knex({
 }); 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors())
+//app.use(cors())
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.header(
