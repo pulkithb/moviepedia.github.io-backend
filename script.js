@@ -49,6 +49,6 @@ app.post('/delfav',(req,res) => {
 	})
 	.catch(err=> res.status(400).json('Unable to delete Favourite'))
 })
-app.listen(3001,()=>{
-    console.log('app is running  ')
+app.listen(process.env.PORT || 3001,()=>{
+    console.log('app is running')
 })
