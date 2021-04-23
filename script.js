@@ -62,6 +62,49 @@ app.post('/delfav',(req,res) => {
 	})
 	.catch(err=> res.status(400).json('Unable to delete Favourite'))
 })
+app.post('/addhis',(req,res)=>{
+	db('history').returning('*').insert({
+		email:req.body.email,
+		search:req.body.search,
+		time: new Date()
+	})
+	.then(response =>{
+		res.json(response)
+	})
+	.catch(err => res.status(400).json('unable to add to history'))
+})
+app.get('/gethis/:email',(req,res) => {
+	const {email}= req.params
+	
+	db.select('*').from('history').where('email','=',email).orderBy('sr','desc')
+	.then(response => {
+		res.json(response)
+	})
+	.catch(err=> res.status(400).json('Unable to load history'))
+
+})
+app.post('/delhis',(req,res) => {
+	
+	db('history').where(
+		'sr','=',req.body.sr
+		
+	).del()
+	.then(response => {
+		res.json(response)
+	})
+	.catch(err=> res.status(400).json('Unable to delete History'))
+})
+app.post('/clearallhis',(req,res) => {
+	
+	db('history').where(
+		'email','=',req.body.email
+		
+	).del()
+	.then(response => {
+		res.json(response)
+	})
+	.catch(err=> res.status(400).json('Unable to clear all History'))
+})
 app.listen(process.env.PORT || 3001,()=>{
     console.log('app is running')
 })
