@@ -23,7 +23,7 @@ app.use(cors())
 });*/
 //console.log(db.select('*').from('favourite'))
 app.post('/addfav',(req,res) => {
-	res.setHeader('Access-Control-Allow-Origin', '*');
+	//res.setHeader('Access-Control-Allow-Origin', '*');
 	db('favourite').returning('*').insert({
 		email:req.body.email,
 		id: req.body.id,
@@ -39,7 +39,7 @@ app.post('/addfav',(req,res) => {
 	.catch(err=> res.status(400).json('Unable to add to favourite'))
 })
 app.get('/getfav/:email',(req,res) => {
-	res.setHeader('Access-Control-Allow-Origin', '*');
+	//res.setHeader('Access-Control-Allow-Origin', '*');
 	const {email}= req.params
 	
 	db.select('*').from('favourite').where('email','=',email)
@@ -51,7 +51,7 @@ app.get('/getfav/:email',(req,res) => {
 
 })
 app.post('/delfav',(req,res) => {
-	res.setHeader('Access-Control-Allow-Origin', '*');
+	//res.setHeader('Access-Control-Allow-Origin', '*');
 	db('favourite').where(
 		'email','=',req.body.email
 		
