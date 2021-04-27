@@ -42,7 +42,7 @@ app.get('/getfav/:email',(req,res) => {
 	//res.setHeader('Access-Control-Allow-Origin', '*');
 	const {email}= req.params
 	
-	db.select('*').from('favourite').where('email','=',email)
+	db.select('*').from('favourite').where('email','=',email).orderBy('sr','desc')
 	.then(response => {
 		//res.setHeader('Access-Control-Allow-Origin', '*');
 		res.json(response)
